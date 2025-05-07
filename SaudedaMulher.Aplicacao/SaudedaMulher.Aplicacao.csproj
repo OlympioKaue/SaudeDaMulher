@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaudeDaMulher.Comunicacao\SaudeDaMulher.Comunicacao.csproj" />
+    <ProjectReference Include="..\SaudeDaMulher.Domain\SaudeDaMulher.Domain.csproj" />
+    <ProjectReference Include="..\SaudeDaMulher.Excecoes\SaudeDaMulher.Excecoes.csproj" />
+    <ProjectReference Include="..\SaudeDaMulher.Infrastrutura\SaudeDaMulher.Infrastrutura.csproj" />
+  </ItemGroup>
+
+</Project>
