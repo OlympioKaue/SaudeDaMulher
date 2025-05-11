@@ -10,5 +10,6 @@ namespace SaudeDaMulher.Domain.Repositorios
    public interface IMulheresRepositorio
     {
         Task Add(Feminino feminino);
+        Task<Feminino?> BuscarMulherPorId(int idDaMulher);
     }
 }

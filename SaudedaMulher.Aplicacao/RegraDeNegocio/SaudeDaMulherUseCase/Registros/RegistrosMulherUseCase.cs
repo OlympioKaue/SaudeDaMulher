@@ -1,8 +1,10 @@
 ﻿using FluentValidation.TestHelper;
+using SaudedaMulher.Aplicacao.Mapster;
 using SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulherUseCase.Registros;
 using SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulherUseCase.Validacoes;
 using SaudeDaMulher.Comunicacao.RequisicaoDTO;
 using SaudeDaMulher.Comunicacao.RespostaDTO;
+using SaudeDaMulher.Domain.Models;
 using SaudeDaMulher.Domain.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,13 @@ namespace SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulher.Registros
     public class RegistrosMulherUseCase : IRegistrosMulherUseCase
     {
         private readonly IMulheresRepositorio _addMulheres;
+        private readonly IMapsterConfig _teste;
         private readonly ISalvarDados _salvar;
 
-        public RegistrosMulherUseCase(IMulheresRepositorio addMulheres, ISalvarDados salvar)
+        public RegistrosMulherUseCase(IMulheresRepositorio addMulheres, ISalvarDados salvar,IMapsterConfig teste)
         {
             _addMulheres = addMulheres;
+            _teste = teste;
             _salvar = salvar;
         }
 
@@ -28,21 +32,11 @@ namespace SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulher.Registros
         {
             Validacoes(cadastro);
 
-            // USE OUTRO MEIO DE MAPEAMENTO.
+           var mapear = _teste.Mapear<CadastroMulheres, Feminino>(cadastro);
 
-            // await _addMulheres.Add(// Vem Do Mapeamento //);
+            await _addMulheres.Add(mapear);
             await _salvar.SalvarDados();
 
-            // return (retorne o mapeamento, mas lembre- se você precisa saber como faz);
-            if(cadastro is null)
-            {
-                throw new Exception(new RespostaRegistroMulher
-                {
-                    Mensagem = "Erro ao registrar mulher",
-                    Sucesso = false
-                }.ToString());
-
-            }
 
             return new RespostaRegistroMulher
             {
@@ -60,7 +54,7 @@ namespace SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulher.Registros
             if(resultadoDaValidacao.IsValid is false)
             {
                 var erros = resultadoDaValidacao.Errors.Select(x => x.ErrorMessage).ToList();
-                return;
+                throw new Exception("erro ao registrar");
             }
         }
     }

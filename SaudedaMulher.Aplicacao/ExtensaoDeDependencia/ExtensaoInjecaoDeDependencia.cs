@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SaudedaMulher.Aplicacao.Mapster;
 using SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulher.Registros;
+using SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulherUseCase.ObterRegistro;
 using SaudedaMulher.Aplicacao.RegraDeNegocio.SaudeDaMulherUseCase.Registros;
 using System;
 using System.Collections.Generic;
@@ -20,9 +22,9 @@ namespace SaudedaMulher.Aplicacao.ExtensaoDeDependencia
         private static void AdicionarExtensaoDeDepencia(this IServiceCollection services)
         {
             services.AddScoped<IRegistrosMulherUseCase, RegistrosMulherUseCase>();
-            //services.AddScoped<IObterMulherUseCase, ObterMulherUseCase>();
-            //services.AddScoped<IAtualizarMulherUseCase, AtualizarMulherUseCase>();
-            //services.AddScoped<IRemoverMulherUseCase, RemoverMulherUseCase>();
+            services.AddScoped<IObterRegistroMulherUseCase, ObterRegistroMulherUseCase>();
+            services.AddScoped<IMapsterConfig, MapsterConfig>();
+         
         }
     }
 }

@@ -1,5 +1,6 @@
 using SaudeDaMulher.Infrastrutura.ExtensaoDeDependencia;
 using SaudedaMulher.Aplicacao.ExtensaoDeDependencia;
+using SaudedaMulher.Aplicacao.Mapster;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Adicionar_Programa();
 builder.Services.AdicionarDados(builder.Configuration);
 
-
+MapsterConfig.RegistrarMapeamento(); // mapeamento de objetos entre DTO e entidade
 
 
 var app = builder.Build();
